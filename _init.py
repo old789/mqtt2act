@@ -7,9 +7,9 @@ def init():
   logging.logMultiProcessing = False
   logging._srcFile = None
 
-  log = logging.getLogger('mqtt2act')
+  log = logging.getLogger(prog_ident)
 
-  if config.verbose:
+  if config.debug:
     log.setLevel(logging.DEBUG)
     h = logging.StreamHandler(stream=sys.stderr)
     f = logging.Formatter('%(asctime)s %(levelname)-8.8s %(name)s: %(message)s', '%H:%M:%S')

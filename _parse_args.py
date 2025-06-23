@@ -10,5 +10,10 @@ def parse_args(args):
                         default='mqtt2act', type=str)
   parser.add_argument("-c", "--config", help="Config file", \
                         default='mqtt2act.conf', type=str)
+  parser.add_argument("-d", "--debug", help="run in debug mode without daemonize", \
+                        default=False, action="store_true")
+  parser.add_argument("-k","--kill", help="kill daemon", \
+                        default=False, action="store_true")
+
   config = parser.parse_args(args)
 

@@ -8,7 +8,13 @@ mqtt_handlers = {}
 mqtt_translations = {}
 rrd_path = ''
 tlg = []
+user = ''
+group = ''
 
+pid_file_name = 'daemon.pid'
+run_folder = ''
+prog_ident = os.path.basename(sys.argv[0]).rstrip('.py')
+stay_foreground = False
 msg_aqua_threshold_high_not_sended = True
 msg_aqua_threshold_low_not_sended = True
 
@@ -20,13 +26,14 @@ if __name__ == '__main__':
   else:
     print(f'Config file "{config.config}" not found', file=sys.stderr)
     exit(1)
+  run_folder = rrd_path
+
+  if config.kill:
+    daemon_stop(pid_file)
+    exit(0)
 
   init()
   connect()
 
-  # Blocking call that processes network traffic, dispatches callbacks and
-  # handles reconnecting.
-  # Other loop*() functions are available that give a threaded interface and a
-  # manual interface.
-  client.loop_forever()
-
+  daemon = Daemonize(app=prog_ident, pid=pid_file, action=loop, foreground=stay_foreground, chdir=run_folder, user=user, group=group)
+  daemon.start()
