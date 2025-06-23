@@ -6,8 +6,7 @@ def handle_aqua_water(msg):
   topic_name = 'aquarium_water_t'
   t = float(msg.payload)
 
-  if not config.dry_run:
-    update_rrd(topic_name, msg.payload)
+  update_rrd(topic_name, msg.payload)
   log.debug(f'Temperature of water in an aquarium {t}{chr(0xB0)}')
 
   if ( t >= threshold_high ):

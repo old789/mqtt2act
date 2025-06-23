@@ -1,17 +1,23 @@
 # Initialize subsystems according to configs that were loaded
 def init():
   global log
-  if config.verbose:
-    logging.basicConfig(format='%(asctime)s %(levelname)-8.8s %(name)s: %(message)s',
-                      datefmt='%H:%M:%S',
-                      level=logging.ERROR)
+
+  logging.logProcesses = True
+  logging.logThreads = False
+  logging.logMultiProcessing = False
+  logging._srcFile = None
 
   log = logging.getLogger('mqtt2act')
 
   if config.verbose:
     log.setLevel(logging.DEBUG)
+    h = logging.StreamHandler(stream=sys.stderr)
+    f = logging.Formatter('%(asctime)s %(levelname)-8.8s %(name)s: %(message)s', '%H:%M:%S')
   else:
-    handl = logging.handlers.SysLogHandler(address='/var/run/log')
-    log.addHandler(handl)
     log.setLevel(logging.INFO)
+    h = logging.handlers.SysLogHandler(address='/var/run/log')
+    f = logging.Formatter('%(name)s[%(process)d]: %(message)s')
+
+  h.setFormatter(f)
+  log.addHandler(h)
 
