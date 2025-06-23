@@ -8,6 +8,10 @@ mqtt_passwd = 'secret'
 # Path where RRD files are placed
 rrd_path = '/var/rrd/'
 
+# System user and group
+exec_user = 'mqtt2act'
+exec_group = 'mqtt2act'
+
 # Parameters for telegram's bots
 tlg = [
         { 'chat': '1111111', 'token': 'bot11111:qwertyuiop' },

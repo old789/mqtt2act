@@ -5,6 +5,8 @@
 
 import os
 import sys
+import time
+import signal
 import rrdtool
 import logging
 import requests
