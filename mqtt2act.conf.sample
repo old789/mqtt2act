@@ -1,0 +1,33 @@
+
+# MQTT server config
+mqtt_host = '127.0.0.1'
+mqtt_port = 1883
+mqtt_user = 'user'
+mqtt_passwd = 'secret'
+
+# Path where RRD files are placed
+rrd_path = '/var/rrd/'
+
+# Parameters for telegram's bots
+tlg = [
+        { 'chat': '1111111', 'token': 'bot11111:qwertyuiop' },
+        { 'chat': '2222222', 'token': 'bot22222:asdfghjklm' }
+]
+
+# Subscribes
+mqtt_subscribes = [ '#' ]
+
+# Translations topics to handlers functions
+mqtt_handlers = {
+                  'some/topic': handle_some_topic,
+                  'special/topic': handle_special_topic
+}
+
+# All topics not described above are handled with a default function
+# That function needs an unique name for a RRD file
+# If the name does not describe, the message will be just logged
+mqtt_translations = {
+                      'some/ordinary/topic': 'ordinary_name',
+                      'some/boring/topic': 'next_name'
+}
+
