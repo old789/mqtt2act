@@ -1,0 +1,52 @@
+#!/bin/sh
+
+# PROVIDE: mqtt2act
+# REQUIRE: DAEMON syslogd mosquitto
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name=mqtt2act
+rcvar=mqtt2act_enable
+extra_commands="watch"
+stop_cmd=mqtt2act_stop
+watch_cmd=mqtt2act_watch
+
+load_rc_config $name
+
+: ${mqtt2act_enable="NO"}
+: ${mqtt2act_conf="/usr/local/etc/mqtt2act.conf"}
+
+required_files="${mqtt2act_conf}"
+
+command="/usr/local/sbin/mqtt2act.py"
+command_args="--config ${mqtt2act_conf}"
+
+pidfile="/var/db/rrd/daemon.pid"
+
+mqtt2act_stop() {
+  checkyesno mqtt2act_enable && echo "Stopping ${name}." && \
+    ${command} ${command_args} --kill
+}
+
+mqtt2act_watch() {
+  if checkyesno mqtt2act_enable; then
+    if [ -f "${pidfile}" -a -s "${pidfile}" ]; then
+      actualpid=`/bin/pgrep -F "${pidfile}"`
+      if [ -z "${actualpid}" ]; then
+        echo PID not found, restart ${command}
+        /bin/rm -f "${pidfile}"
+        run_rc_command "start"
+      fi
+    else
+      echo "${pidfile}" not found
+      actualpid=`/bin/pgrep -f "${name}"`
+      if [ -n "${actualpid}" ]; then
+        /bin/kill "${actualpid}"
+      fi
+      run_rc_command "start"
+    fi
+  fi
+}
+
+run_rc_command "$1"
