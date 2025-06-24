@@ -8,5 +8,5 @@ def update_rrd(filename, value, timestamp='N'):
       return
     rrdtool.update(filename, timestamp+':'+str(float(value)))
   else:
-    log.error(f'File {filename} does not esists')
+    log.error(f'File {filename} does not exists')
 

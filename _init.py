@@ -14,7 +14,7 @@ def init():
     h = logging.StreamHandler(stream=sys.stderr)
     f = logging.Formatter('%(asctime)s %(levelname)-8.8s %(name)s: %(message)s', '%H:%M:%S')
   else:
-    log.setLevel(logging.INFO)
+    log.setLevel(logging.INFO if not config.verbose else logging.DEBUG)
     h = logging.handlers.SysLogHandler(address='/var/run/log')
     f = logging.Formatter('%(name)s[%(process)d]: %(message)s')
 

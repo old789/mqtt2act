@@ -11,11 +11,11 @@ tlg = []
 exec_user = ''
 exec_group = ''
 
-pid_file_name = 'daemon.pid'
 run_folder = ''
+pid_file_name = 'daemon.pid'
+msg_aqua_threshold_high_sended = False
+msg_aqua_threshold_low_sended = False
 prog_ident = os.path.basename(sys.argv[0]).rstrip('.py')
-msg_aqua_threshold_high_not_sended = True
-msg_aqua_threshold_low_not_sended = True
 
 if __name__ == '__main__':
   parse_args(sys.argv[1:])
