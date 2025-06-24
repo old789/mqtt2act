@@ -14,7 +14,6 @@ exec_group = ''
 pid_file_name = 'daemon.pid'
 run_folder = ''
 prog_ident = os.path.basename(sys.argv[0]).rstrip('.py')
-#stay_foreground = False
 msg_aqua_threshold_high_not_sended = True
 msg_aqua_threshold_low_not_sended = True
 
