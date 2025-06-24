@@ -32,6 +32,9 @@ if __name__ == '__main__':
     daemon_stop(pid_file)
     exit(0)
 
+  init()
+
   daemon = Daemonize( app=prog_ident, pid=pid_file, action=loop, foreground=config.debug, \
-                      chdir=run_folder, user=exec_user, group=exec_group )
+                      chdir=run_folder, user=exec_user, group=exec_group, \
+                      verbose=config.verbose, logger=log )
   daemon.start()
