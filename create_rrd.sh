@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ -z "$2" -a -z "$1" ]; then
+if [ -z "$2" -o -z "$1" ]; then
     echo "Usage: $0 <RRD's name> <obj name>"
     exit
 fi
