@@ -1,5 +1,4 @@
-# Initialize subsystems according to configs that were loaded
-def init():
+def init_logging():
   global log
 
   logging.logProcesses = True

@@ -9,7 +9,7 @@ def daemon_stop(pid_file):
     pid = None
 
   if not pid:
-    print(f'pidfile {pid_file} does not exist. Daemon not running?', file=sys.stderr )
+    log.error(f'pidfile {pid_file} does not exist. Daemon not running?')
     exit(1)
 
   # Try killing the daemon process
@@ -24,8 +24,8 @@ def daemon_stop(pid_file):
         os.remove(pid_file)
       exit(0)
     else:
-      print(f'Error while killing process : {str(err)}', file=sys.stderr )
+      log.error(f'Error while killing process : {str(err)}')
       exit(1)
-  printr('Error killing process : timeout', file=sys.stderr )
+  log.error('Error killing process : timeout')
   exit(1)
 

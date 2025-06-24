@@ -25,14 +25,16 @@ if __name__ == '__main__':
     exit(1)
 
   exec(open(config.config).read())  # not good, but easy ( I understand risks )
+
+  init_logging()
+
   run_folder = rrd_path
   pid_file = os.path.join(run_folder, pid_file_name)
+  log.debug(f'PID file is configured to {pid_file}')
 
   if config.kill:
     daemon_stop(pid_file)
     exit(0)
-
-  init()
 
   daemon = Daemonize( app=prog_ident, pid=pid_file, action=loop, foreground=config.debug, \
                       chdir=run_folder, user=exec_user, group=exec_group, \
