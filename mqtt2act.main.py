@@ -6,6 +6,7 @@ mqtt_passwd = ''
 mqtt_subscribes = []
 mqtt_handlers = {}
 mqtt_translations = {}
+topic_state = {}
 rrd_path = ''
 tlg = []
 exec_user = ''
@@ -29,7 +30,10 @@ if __name__ == '__main__':
   init_logging()
 
   run_folder = rrd_path
-  pid_file = os.path.join(run_folder, pid_file_name)
+  if config.debug:
+    pid_file = pid_file_name
+  else:
+    pid_file = os.path.join(run_folder, pid_file_name)
   log.debug(f'PID file is configured to {pid_file}')
 
   if config.kill:

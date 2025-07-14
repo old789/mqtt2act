@@ -7,5 +7,5 @@ def autoconvert(val):
   try:
     return(float(val))
   except ValueError:
-    return(str(val))
+    return(val.decode('UTF-8'))
 
